@@ -114,32 +114,32 @@ object MagicalBinaryString extends App {
 
   def largestMagical(in: String): String = {
 
-    var subs: List[Tuple3[String, Int, Int]] = List()
-    val splitted = in.split("")
+    var substrings: List[Tuple3[String, Int, Int]] = List()
+    val splittedInput = in.split("")
 
-    for (i <- splitted.indices; j <- i until splitted.length + 1) {
+    for (i <- splittedInput.indices; j <- i until splittedInput.length + 1) {
       val substring = in.substring(i, j)
       var sum = 0
-      val splitedSubstring = substring.split("")
-      if (splitedSubstring.length > 1 && substring != in) {
-        for (k <- splitedSubstring.indices) {
-          if (splitedSubstring(k) == "0") {
+      val splittedSubstring = substring.split("")
+      if (splittedSubstring.length > 1 && substring != in) {
+        for (k <- splittedSubstring.indices) {
+          if (splittedSubstring(k) == "0") {
             sum = sum - 1
           }
-          if (splitedSubstring(k) == "1") {
+          if (splittedSubstring(k) == "1") {
             sum = sum + 1
           }
         }
-        if (sum == 0 && !subs.map(t => t._1).contains(substring)) {
-          subs = subs :+ (substring, i, j)
+        if (sum == 0 && !substrings.map(t => t._1).contains(substring)) {
+          substrings = substrings :+ (substring, i, j)
         }
       }
     }
 
-    subs.sortWith((a: Tuple3[String, Int, Int], b: Tuple3[String, Int, Int]) => a._1.length > b._1.length)
+    substrings.sortWith((a: Tuple3[String, Int, Int], b: Tuple3[String, Int, Int]) => a._1.length > b._1.length)
 
     var res: (String, Boolean) = ("", false)
-    for (r <- subs; z <- subs.reverse) {
+    for (r <- substrings; z <- substrings.reverse) {
       val possible: String = in.
         replace(r._1, "a")
         .replace(z._1, "b")
