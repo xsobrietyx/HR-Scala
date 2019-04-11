@@ -192,6 +192,7 @@ class MagicalBinaryString {
       else magicalResult.initialString
     }
 
-    getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(input))))
+    if(input.length <= 2) input
+    else getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(input))))
   }
 }
