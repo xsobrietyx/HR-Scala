@@ -120,27 +120,26 @@ object MagicalBinaryString extends App {
 
   def largestMagical(in: String): String = {
 
-    case class Substring(value: String, startIndex: Int, endIndex: Int, initialString: String)
-
-    case class MagicalResult(value: String, ready: Boolean, initialString: String)
-
     def isMagical(str: String, in: String): Boolean = {
-      var sum = (0, false, 0, 0)
+      case class TemporarySum(balance: Int, changed: Boolean, zeros: Int, ones: Int)
+      var sum = TemporarySum(0, changed = false, 0, 0)
       val splittedSubstring = str.toCharArray
 
       if (splittedSubstring.length > 1 && str != in) {
         for (k <- splittedSubstring.indices) {
           if (splittedSubstring(k) == '0') {
-            sum = (sum._1 - 1, true, sum._3 + 1, sum._4)
+            sum = TemporarySum(sum.balance - 1, changed = true, sum.zeros + 1, sum.ones)
           }
           if (splittedSubstring(k) == '1') {
-            sum = (sum._1 + 1, true, sum._3, sum._4 + 1)
+            sum = TemporarySum(sum.balance + 1, changed = true, sum.zeros, sum.ones + 1)
           }
         }
       }
-      if (sum._1 == 0 && sum._2 && sum._3 == sum._4) true
+      if (sum.balance == 0 && sum.changed && sum.zeros == sum.ones) true
       else false
     }
+
+    case class Substring(value: String, startIndex: Int, endIndex: Int, initialString: String)
 
     def toUniqueSubstrings(inputString: String): List[Substring] = {
       val strAsArray: Array[Char] = inputString.toCharArray
@@ -161,6 +160,8 @@ object MagicalBinaryString extends App {
       res.sortWith((a: Substring, b: Substring) => a.value.length > b.value.length && a.value > b.value)
       res
     }
+
+    case class MagicalResult(value: String, ready: Boolean, initialString: String)
 
     def makeReplacements(list: List[Substring]): MagicalResult = {
       var res: MagicalResult = MagicalResult("", ready = false, list.head.initialString)
