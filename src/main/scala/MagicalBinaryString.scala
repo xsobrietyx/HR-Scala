@@ -62,7 +62,9 @@ object MagicalBinaryString extends App {
   /*
       f(input) should return 11100100(0,7), 10(1,3) and 1100(3,7) should be replaced with each other
    */
-  val input: String = "11011000"
+  val input_1: String = "11011000"
+  val input_2: String = "1100"
+  val input_3: String = "1101001100"
   /*
        0 1234  56 7
       (1(1100)(10)0) => 11100100
@@ -155,11 +157,17 @@ object MagicalBinaryString extends App {
     var res: (String, Boolean) = ("", false)
 
     if (substrings.nonEmpty) {
+
       import util.control.Breaks._
+
       breakable {
+
         for (r <- substrings; z <- substrings.reverse) {
+
           var possible = in
+
           if (r._3 == z._2 && r._1.length < z._1.length) {
+
             possible = in.
               replaceFirst(r._1, "a")
               .replaceFirst(z._1, "b")
@@ -177,8 +185,8 @@ object MagicalBinaryString extends App {
     else in
   }
 
-  println(largestMagical(input)) // 11100100
-  println(largestMagical("1100")) // 1100
-  println(largestMagical("1101001100")) // 1101001100
+  println(largestMagical(input_1)) // 11100100
+  println(largestMagical(input_2)) // 1100
+  println(largestMagical(input_3)) // 1101001100
 
 }
