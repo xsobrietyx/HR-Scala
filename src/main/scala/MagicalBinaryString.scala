@@ -185,8 +185,8 @@ object MagicalBinaryString extends App {
     else in
   }
 
-  println(largestMagical(input_1)) // 11100100
-  println(largestMagical(input_2)) // 1100
-  println(largestMagical(input_3)) // 1101001100
+  println(largestMagical(input_1)) // result => 11100100
+  println(largestMagical(input_2)) // result => 1100
+  println(largestMagical(input_3)) // result => 1101001100
 
 }
