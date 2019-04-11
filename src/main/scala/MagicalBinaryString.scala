@@ -58,14 +58,12 @@ The only consecutive magical substrings of str are 110100 and 1100 (note that 10
 /**
   * Created by xsobrietyx on 10-April-2019 time 20:19
   */
-object MagicalBinaryString extends App {
+class MagicalBinaryString {
   /*
       f(input_1) should return 11100100(0,7), 10(1,3) and 1100(3,7) should be replaced with each other
-   */
-  val input_1: String = "11011000"
-  val input_2: String = "1100"
-  val input_3: String = "1101001100"
-  /*
+
+      val input_1: String = "11011000"
+
        0 1234  56 7
       (1(1100)(10)0) => 11100100
    */
@@ -195,9 +193,4 @@ object MagicalBinaryString extends App {
 
     getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(input))))
   }
-
-  println(largestMagical(input_1)) // result => 11100100
-  println(largestMagical(input_2)) // result => 1100
-  println(largestMagical(input_3)) // result => 1101001100
-
 }
