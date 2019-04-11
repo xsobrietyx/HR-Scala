@@ -50,7 +50,6 @@ Sample Output 2
 
 Explanation 2
 The only consecutive magical substrings of str are 110100 and 1100 (note that 100 is not a magical substring because it contains more zeroes than ones); if we were to swap them, it would result in a lexicographically smaller string. Thus, str is already the lexicographically largest magical string that can be formed and we return 1101001100 as our answer.
--}
 
 --note that the concatenation of any two magical strings is magical. also any prefix of a magical string meeting cond 1 is magical
 
@@ -117,9 +116,12 @@ object MagicalBinaryString extends App {
     var substrings: List[Tuple3[String, Int, Int]] = List()
     val splittedInput = in.split("")
 
+    // Tests whether the string is magical ("1"'s count == "0"'s count)
     def isMagical(str: String, in: String): Boolean = {
+
       var sum = 0
       val splittedSubstring = str.split("")
+
       if (splittedSubstring.length > 1 && str != in) {
         for (k <- splittedSubstring.indices) {
           if (splittedSubstring(k) == "0") {
@@ -134,9 +136,11 @@ object MagicalBinaryString extends App {
     }
 
     for (i <- splittedInput.indices; j <- i until splittedInput.length + 1) {
+
       val substring = in.substring(i, j)
 
       if (isMagical(substring, in) && !substrings.map(t => t._1).contains(substring)) {
+        // tuples picked for better testing and tuning options during the algorithm implementation
         substrings = substrings :+ (substring, i, j)
       }
     }
@@ -145,14 +149,18 @@ object MagicalBinaryString extends App {
       .sortWith((a: Tuple3[String, Int, Int], b: Tuple3[String, Int, Int]) => a._1.length > b._1.length && a._1 > b._1)
 
     var res: (String, Boolean) = ("", false)
+
     for (r <- substrings; z <- substrings.reverse) {
+
       val possible: String = in.
         replace(r._1, "a")
         .replace(z._1, "b")
         .replace("a", z._1)
         .replace("b", r._1)
+
       if (possible.length == in.length && isMagical(possible, in)) res = (possible, true)
     }
+
     if (res._2) res._1
     else in
   }
