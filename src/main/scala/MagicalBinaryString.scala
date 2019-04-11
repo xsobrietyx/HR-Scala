@@ -125,7 +125,6 @@ object MagicalBinaryString extends App {
     case class MagicalResult(value: String, ready: Boolean, initialString: String)
 
     def isMagical(str: String, in: String): Boolean = {
-
       var sum = (0, false, 0, 0)
       val splittedSubstring = str.toCharArray
 
@@ -148,11 +147,8 @@ object MagicalBinaryString extends App {
       var substrings: List[Substring] = List()
 
       for (i <- strAsArray.indices; j <- i until strAsArray.length + 1) {
-
         val currentSubstring = inputString.substring(i, j)
-
         if (isMagical(currentSubstring, inputString) && !substrings.map(sub => sub.value).contains(currentSubstring)) {
-
           substrings = substrings :+ Substring(currentSubstring, i, j, inputString)
         }
       }
@@ -170,17 +166,12 @@ object MagicalBinaryString extends App {
       var res: MagicalResult = MagicalResult("", ready = false, list.head.initialString)
 
       if (list.nonEmpty) {
-
         import util.control.Breaks._
-
         breakable {
-
           for (r <- list; z <- list.reverse) {
-
             var solution = in
 
             if (r.endIndex == z.startIndex && r.value.length < z.value.length) {
-
               solution = in.
                 replaceFirst(r.value, "a")
                 .replaceFirst(z.value, "b")
