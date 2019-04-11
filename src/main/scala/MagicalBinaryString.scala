@@ -71,6 +71,8 @@ object MagicalBinaryString extends App {
    */
 
   /*
+      Some data visualisation for input_1
+
       1
       11
       110
