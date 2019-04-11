@@ -119,20 +119,20 @@ object MagicalBinaryString extends App {
   def largestMagical(in: String): String = {
 
     var substrings: List[Tuple3[String, Int, Int]] = List()
-    val splittedInput = in.split("")
+    val splittedInput = in.toCharArray
 
     // Tests whether the string is magical ("1"'s count == "0"'s count)
     def isMagical(str: String, in: String): Boolean = {
 
       var sum = (0, false, 0, 0)
-      val splittedSubstring = str.split("")
+      val splittedSubstring = str.toCharArray
 
       if (splittedSubstring.length > 1 && str != in) {
         for (k <- splittedSubstring.indices) {
-          if (splittedSubstring(k) == "0") {
+          if (splittedSubstring(k) == '0') {
             sum = (sum._1 - 1, true, sum._3 + 1, sum._4)
           }
-          if (splittedSubstring(k) == "1") {
+          if (splittedSubstring(k) == '1') {
             sum = (sum._1 + 1, true, sum._3, sum._4 + 1)
           }
         }
