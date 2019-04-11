@@ -55,66 +55,67 @@ The only consecutive magical substrings of str are 110100 and 1100 (note that 10
 
  */
 
+/*
+    f(input_1) should return 11100100(0,7), 10(1,3) and 1100(3,7) should be replaced with each other
+
+    val input_1: String = "11011000"
+
+     0 1234  56 7
+    (1(1100)(10)0) => 11100100
+ */
+
+/*
+    Some data visualisation for input_1
+
+    1
+    11
+    110
+    1101
+    11011
+    110110
+    1101100
+    11011000
+
+    1
+    10 <-
+    101
+    1011
+    10110
+    101100
+    1011000
+
+    0
+    01
+    011
+    0110
+    01100
+    011000
+
+    1
+    11
+    110
+    1100 <-
+    11000
+
+    1
+    10
+    100
+    1000
+
+    0
+    00
+    000
+
+    0
+    00
+
+    0
+ */
+
 /**
   * Created by xsobrietyx on 10-April-2019 time 20:19
   */
 class MagicalBinaryString {
-  /*
-      f(input_1) should return 11100100(0,7), 10(1,3) and 1100(3,7) should be replaced with each other
-
-      val input_1: String = "11011000"
-
-       0 1234  56 7
-      (1(1100)(10)0) => 11100100
-   */
-
-  /*
-      Some data visualisation for input_1
-
-      1
-      11
-      110
-      1101
-      11011
-      110110
-      1101100
-      11011000
-
-      1
-      10 <-
-      101
-      1011
-      10110
-      101100
-      1011000
-
-      0
-      01
-      011
-      0110
-      01100
-      011000
-
-      1
-      11
-      110
-      1100 <-
-      11000
-
-      1
-      10
-      100
-      1000
-
-      0
-      00
-      000
-
-      0
-      00
-
-      0
-   */
 
   def largestMagical(input: String): String = {
 
