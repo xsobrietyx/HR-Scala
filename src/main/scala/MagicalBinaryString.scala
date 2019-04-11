@@ -120,10 +120,10 @@ object MagicalBinaryString extends App {
 
   def largestMagical(in: String): String = {
 
-    var substrings: List[Tuple3[String, Int, Int]] = List()
-    val splittedInput = in.toCharArray
+    case class Substring(value: String, startIndex: Int, endIndex: Int, initialString: String)
 
-    // Tests whether the string is magical ("1"'s count == "0"'s count)
+    case class MagicalResult(value: String, ready: Boolean, initialString: String)
+
     def isMagical(str: String, in: String): Boolean = {
 
       var sum = (0, false, 0, 0)
@@ -143,48 +143,65 @@ object MagicalBinaryString extends App {
       else false
     }
 
-    for (i <- splittedInput.indices; j <- i until splittedInput.length + 1) {
+    def toUniqueSubstrings(inputString: String): List[Substring] = {
+      val strAsArray: Array[Char] = inputString.toCharArray
+      var substrings: List[Substring] = List()
 
-      val substring = in.substring(i, j)
+      for (i <- strAsArray.indices; j <- i until strAsArray.length + 1) {
 
-      if (isMagical(substring, in) && !substrings.map(t => t._1).contains(substring)) {
-        // tuples picked for better testing and tuning options during the algorithm implementation
-        substrings = substrings :+ (substring, i, j)
-      }
-    }
+        val currentSubstring = inputString.substring(i, j)
 
-    substrings
-      .sortWith((a: Tuple3[String, Int, Int], b: Tuple3[String, Int, Int]) => a._1.length > b._1.length && a._1 > b._1)
+        if (isMagical(currentSubstring, inputString) && !substrings.map(sub => sub.value).contains(currentSubstring)) {
 
-    var res: (String, Boolean) = ("", false)
-
-    if (substrings.nonEmpty) {
-
-      import util.control.Breaks._
-
-      breakable {
-
-        for (r <- substrings; z <- substrings.reverse) {
-
-          var possible = in
-
-          if (r._3 == z._2 && r._1.length < z._1.length) {
-
-            possible = in.
-              replaceFirst(r._1, "a")
-              .replaceFirst(z._1, "b")
-              .replaceFirst("a", z._1)
-              .replaceFirst("b", r._1)
-          }
-
-          if (possible.length == in.length) res = (possible, true)
-          if (res._2) break
+          substrings = substrings :+ Substring(currentSubstring, i, j, inputString)
         }
       }
+
+      substrings
     }
 
-    if (res._2) res._1
-    else in
+    def sortSubstringsList(list: List[Substring]): List[Substring] = {
+      var res = list
+      res.sortWith((a: Substring, b: Substring) => a.value.length > b.value.length && a.value > b.value)
+      res
+    }
+
+    def makeReplacements(list: List[Substring]): MagicalResult = {
+      var res: MagicalResult = MagicalResult("", ready = false, list.head.initialString)
+
+      if (list.nonEmpty) {
+
+        import util.control.Breaks._
+
+        breakable {
+
+          for (r <- list; z <- list.reverse) {
+
+            var solution = in
+
+            if (r.endIndex == z.startIndex && r.value.length < z.value.length) {
+
+              solution = in.
+                replaceFirst(r.value, "a")
+                .replaceFirst(z.value, "b")
+                .replaceFirst("a", z.value)
+                .replaceFirst("b", r.value)
+            }
+
+            if (solution.length == in.length) res = MagicalResult(solution, ready = true, res.initialString)
+            if (res.ready) break
+          }
+        }
+      }
+      res
+    }
+
+    def getAnswer(magicalResult: MagicalResult): String = {
+      if (magicalResult.ready) magicalResult.value
+      else magicalResult.initialString
+    }
+
+    getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(in))))
   }
 
   println(largestMagical(input_1)) // result => 11100100
