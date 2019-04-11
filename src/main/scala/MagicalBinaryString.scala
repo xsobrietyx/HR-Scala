@@ -173,8 +173,8 @@ object MagicalBinaryString extends App {
             var solution = res.initialString
 
             if (r.endIndex == z.startIndex && r.value.length < z.value.length) {
-              solution = solution.
-                replaceFirst(r.value, "a")
+              solution = solution
+                .replaceFirst(r.value, "a")
                 .replaceFirst(z.value, "b")
                 .replaceFirst("a", z.value)
                 .replaceFirst("b", r.value)
