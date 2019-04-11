@@ -118,14 +118,14 @@ object MagicalBinaryString extends App {
       0
    */
 
-  def largestMagical(in: String): String = {
+  def largestMagical(input: String): String = {
 
-    def isMagical(str: String, in: String): Boolean = {
+    def isMagical(str: String, initialString: String): Boolean = {
       case class TemporarySum(balance: Int, changed: Boolean, zeros: Int, ones: Int)
       var sum = TemporarySum(0, changed = false, 0, 0)
       val splittedSubstring = str.toCharArray
 
-      if (splittedSubstring.length > 1 && str != in) {
+      if (splittedSubstring.length > 1 && str != initialString) {
         for (k <- splittedSubstring.indices) {
           if (splittedSubstring(k) == '0') {
             sum = TemporarySum(sum.balance - 1, changed = true, sum.zeros + 1, sum.ones)
@@ -170,17 +170,17 @@ object MagicalBinaryString extends App {
         import util.control.Breaks._
         breakable {
           for (r <- list; z <- list.reverse) {
-            var solution = in
+            var solution = res.initialString
 
             if (r.endIndex == z.startIndex && r.value.length < z.value.length) {
-              solution = in.
+              solution = solution.
                 replaceFirst(r.value, "a")
                 .replaceFirst(z.value, "b")
                 .replaceFirst("a", z.value)
                 .replaceFirst("b", r.value)
             }
 
-            if (solution.length == in.length) res = MagicalResult(solution, ready = true, res.initialString)
+            if (solution.length == res.initialString.length) res = MagicalResult(solution, ready = true, res.initialString)
             if (res.ready) break
           }
         }
@@ -193,7 +193,7 @@ object MagicalBinaryString extends App {
       else magicalResult.initialString
     }
 
-    getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(in))))
+    getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(input))))
   }
 
   println(largestMagical(input_1)) // result => 11100100
