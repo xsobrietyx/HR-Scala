@@ -6,17 +6,17 @@ import util.UnitSpec
 class MagicalBinaryStringSpec extends UnitSpec {
 
   "MagicBinaryString.largestMagical()" should "return proper magical strings" in {
-    val magicalBinaryString = new MagicalBinaryString()
+    val magicalBS = new MagicalBinaryString()
 
-    assert(magicalBinaryString.largestMagical("11011000") == "11100100")
-    assert(magicalBinaryString.largestMagical("1100") == "1100")
-    assert(magicalBinaryString.largestMagical("1101001100") == "1101001100")
-    assert(magicalBinaryString.largestMagical("1010") == "1010")
+    magicalBS.largestMagical("11011000") should be ("11100100")
+    magicalBS.largestMagical("1100") should be ("1100")
+    magicalBS.largestMagical("1101001100") should be ("1101001100")
+    magicalBS.largestMagical("1010") should be ("1010")
 
-    assert(magicalBinaryString.largestMagical("10") == "10")
-    assert(magicalBinaryString.largestMagical("0") == "0")
-    assert(magicalBinaryString.largestMagical("1") == "1")
-    assert(magicalBinaryString.largestMagical("") == "")
+    magicalBS.largestMagical("10") should be ("10")
+    magicalBS.largestMagical("0") should be ("0")
+    magicalBS.largestMagical("1") should be ("1")
+    magicalBS.largestMagical("") should be ("")
   }
 
 }
