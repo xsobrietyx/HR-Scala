@@ -122,20 +122,21 @@ object MagicalBinaryString extends App {
     // Tests whether the string is magical ("1"'s count == "0"'s count)
     def isMagical(str: String, in: String): Boolean = {
 
-      var sum = 0
+      var sum = (0, false, 0, 0)
       val splittedSubstring = str.split("")
 
       if (splittedSubstring.length > 1 && str != in) {
         for (k <- splittedSubstring.indices) {
           if (splittedSubstring(k) == "0") {
-            sum = sum - 1
+            sum = (sum._1 - 1, true, sum._3 + 1, sum._4)
           }
           if (splittedSubstring(k) == "1") {
-            sum = sum + 1
+            sum = (sum._1 + 1, true, sum._3, sum._4 + 1)
           }
         }
       }
-      sum == 0
+      if (sum._1 == 0 && sum._2 && sum._3 == sum._4) true
+      else false
     }
 
     for (i <- splittedInput.indices; j <- i until splittedInput.length + 1) {
@@ -153,15 +154,23 @@ object MagicalBinaryString extends App {
 
     var res: (String, Boolean) = ("", false)
 
-    for (r <- substrings; z <- substrings.reverse) {
+    if (substrings.nonEmpty) {
+      import util.control.Breaks._
+      breakable {
+        for (r <- substrings; z <- substrings.reverse) {
+          var possible = in
+          if (r._3 == z._2 && r._1.length < z._1.length) {
+            possible = in.
+              replaceFirst(r._1, "a")
+              .replaceFirst(z._1, "b")
+              .replaceFirst("a", z._1)
+              .replaceFirst("b", r._1)
+          }
 
-      val possible: String = in.
-        replace(r._1, "a")
-        .replace(z._1, "b")
-        .replace("a", z._1)
-        .replace("b", r._1)
-
-      if (possible.length == in.length && isMagical(possible, in)) res = (possible, true)
+          if (possible.length == in.length) res = (possible, true)
+          if (res._2) break
+        }
+      }
     }
 
     if (res._2) res._1
@@ -169,5 +178,7 @@ object MagicalBinaryString extends App {
   }
 
   println(largestMagical(input)) // 11100100
+  println(largestMagical("1100")) // 1100
+  println(largestMagical("1101001100")) // 1101001100
 
 }
