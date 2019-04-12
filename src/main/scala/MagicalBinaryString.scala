@@ -120,7 +120,9 @@ class MagicalBinaryString {
   def largestMagical(input: String): String = {
 
     def isMagical(str: String, initialString: String): Boolean = {
-      case class TemporarySum(balance: Int, changed: Boolean, zeros: Int, ones: Int)
+      case class TemporarySum(balance: Int, changed: Boolean, zeros: Int, ones: Int) {
+        def acceptable: Boolean = balance == 0 && changed && zeros == ones
+      }
       var sum = TemporarySum(0, changed = false, 0, 0)
       val splittedSubstring = str.toCharArray
 
@@ -134,7 +136,7 @@ class MagicalBinaryString {
           }
         }
       }
-      if (sum.balance == 0 && sum.changed && sum.zeros == sum.ones) true
+      if (sum.acceptable) true
       else false
     }
 
@@ -192,7 +194,7 @@ class MagicalBinaryString {
       else magicalResult.initialString
     }
 
-    if(input.length <= 2) input
+    if (input.length <= 2) input
     else getAnswer(makeReplacements(sortSubstringsList(toUniqueSubstrings(input))))
   }
 }
