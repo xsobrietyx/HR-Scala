@@ -13,8 +13,8 @@ object CodilityTasks {
     if (n == 1) 0
 
     else {
-      val chars = n.toString
-      val res = chars
+      val asString = n.toString
+      val res = asString
         .replaceFirst("1", "a")
         .replaceAll("\\d", "0")
         .replace('a', '1').toInt
