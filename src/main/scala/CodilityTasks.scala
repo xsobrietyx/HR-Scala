@@ -28,7 +28,7 @@ object CodilityTasks {
     where n is in the range of the input values.
     Example: in range from 6000 to 7000 function should return 3
              sqrt(6561) -> 81, sqrt(81) -> 9, sqrt(9) -> 3
-             in range from 100 to 7000 function should return 4
+             in range from 100 to 70000 function should return 4
              sqrt(65536) -> 256, sqrt(256) -> 16, sqrt(16) -> 4, sqrt(4) -> 2
    */
   def sqrtMaxDepth(a: Int, b: Int): Int = {
@@ -39,9 +39,10 @@ object CodilityTasks {
       else acc
     }
 
-    var times = 0
+    var times: Int = 0
     (a to b).foreach(n => if (recursiveSQRT(n) > 0) {
-      if (times < recursiveSQRT(n)) times = recursiveSQRT(n)
+      val potential: Int = recursiveSQRT(n)
+      if (times < potential) times = potential
     })
     times
   }
