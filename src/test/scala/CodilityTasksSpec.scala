@@ -16,6 +16,7 @@ class CodilityTasksSpec extends UnitSpec {
   }
 
   "SqrtMaxDepth" should "return a maximum depth of the successful Math.sqrt(n) in range that passed as arguments" in {
+    sqrtMaxDepth(0, 20) should be (2)
     sqrtMaxDepth(6000, 7000) should be (3)
     sqrtMaxDepth(100, 7000) should be (4)
   }
