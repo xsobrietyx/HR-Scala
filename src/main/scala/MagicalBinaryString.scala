@@ -115,7 +115,7 @@ The only consecutive magical substrings of str are 110100 and 1100 (note that 10
 /**
   * Created by xsobrietyx on 10-April-2019 time 20:19
   */
-class MagicalBinaryString {
+object MagicalBinaryString {
 
   def largestMagical(input: String): String = {
 
