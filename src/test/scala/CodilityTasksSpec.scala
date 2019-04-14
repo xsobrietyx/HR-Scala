@@ -4,7 +4,7 @@ import util.UnitSpec
 /**
   * Created by xsobrietyx on 13-April-2019 time 23:49
   */
-class CodilityTasksSpec extends UnitSpec{
+class CodilityTasksSpec extends UnitSpec {
   "Minimal digits" should "return a minimal value of integer for the same integer length" in {
     minimalDigits(113424) should be (100000)
     minimalDigits(1189) should be (1000)
