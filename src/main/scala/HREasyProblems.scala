@@ -139,9 +139,6 @@ Which is not adopted for the proper test cases/input values. So I need first to 
       }
     }
 
-    val min: BigInt = findMin(res = arr.sum)
-    val max: BigInt = findMax()
-
-    println(s"$min $max")
+    println(s"${findMin(res = arr.sum)} ${findMax()}")
   }
 }
