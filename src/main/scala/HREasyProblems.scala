@@ -129,6 +129,7 @@ Which is not adopted for the proper test cases/input values. So I need first to 
         findMin(counter + 1, nextRes)
       }
     }
+
     @tailrec
     def findMax(counter: Int = 0, res: BigInt = 0): BigInt = {
       if (counter == arr.length) res
@@ -141,4 +142,48 @@ Which is not adopted for the proper test cases/input values. So I need first to 
 
     println(s"${findMin(res = arr.sum)} ${findMax()}")
   }
+
+  /*
+  You are in charge of the cake for your niece's birthday and have decided the cake will have one candle for each year of her total age.
+  When she blows out the candles, she’ll only be able to blow out the tallest ones.
+  Your task is to find out how many candles she can successfully blow out.
+ */
+  def birthdayCakeCandles(ar: Array[Int]): Int = {
+    ar.count(p => p == ar.max)
+  }
+
+  /*
+  Convert time from AM/PM format to military 24H format.
+  Note: Midnight is 12:00:00AM on a 12-hour clock, and 00:00:00 on a 24-hour clock.
+  Noon is 12:00:00PM on a 12-hour clock, and 12:00:00 on a 24-hour clock.
+  For example: "07:05:45PM" should return "19:05:45"
+   */
+  def timeConversion(s: String): String = {
+    import java.text.SimpleDateFormat
+    val inputFormat = new SimpleDateFormat("hh:mm:ssa")
+    val outputFormat = new SimpleDateFormat("HH:mm:ss")
+    outputFormat.format(inputFormat.parse(s))
+  }
+
+  /*
+  Sam's house in om the middle of the two trees, within the range of [s, t].
+  Sam's house has an apple tree and an orange tree that yield an abundance of fruit.
+  The apple tree is to the left of his house, and the orange tree is to its right.
+  You can assume the trees are located on a single point, where the apple tree is at point a, and the orange tree is at point b.
+  When a fruit falls from its tree, it lands d units of distance from its tree of origin along the x-axis.
+  A negative value of d means the fruit fell d units to the tree's left, and a positive value of d means it falls d units to the tree's right.
+  Given the value of d for m apples and n oranges, determine how many apples and oranges will fall on Sam's house (i.e., in the inclusive range [s, t])?
+ */
+  def countApplesAndOranges(s: Int, t: Int, a: Int, b: Int, apples: Array[Int], oranges: Array[Int]) {
+    val result: List[Int] = List(apples.map(ap => ap + a).count(apos => apos >= s && apos <= t),
+      oranges.map(o => o + b).count(op => op <= t && op >= s))
+    result.foreach(println)
+
+    /*
+    Solution acceptable by HR compiler:
+    println(s"${apples.map(ap => ap + a).count(apos => apos >= s && apos <= t)}")
+    println(s"${oranges.map(o => o + b).count(op => op <= t && op >= s)}")
+     */
+  }
+
 }
