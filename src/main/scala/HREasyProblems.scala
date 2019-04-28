@@ -1,3 +1,5 @@
+import scala.annotation.tailrec
+
 /**
   * Created by xsobrietyx on 27-April-2019 time 15:44
   */
@@ -34,6 +36,7 @@ object HREasyProblems extends App {
     val i1: (Int, Int) = (0, 0)
     val i2: (Int, Int) = (matrix.length - 1, 0)
 
+    @tailrec
     def compute(iter0: Int = 0, iter1: (Int, Int), iter2: (Int, Int), result: (Int, Int) = (0, 0)): Int = {
       if (iter0 == matrix.length) Math.abs(result._1 - result._2)
       else compute(iter0 + 1,
@@ -78,5 +81,67 @@ object HREasyProblems extends App {
       (1 to z).foreach(_ => print("#"))
       println("")
     })
+  }
+
+  /*
+Given five positive integers, find the minimum and maximum values that can be calculated by summing exactly four of the five integers.
+Then print the respective minimum and maximum values as a single line of two space-separated long integers.
+In example below output should be: 16 23
+1 8 3 5 = 17
+1 8 3 7 = 19
+1 8 5 7 = 21
+1 3 5 7 = 16
+8 3 5 7 = 23
+For input Array[BigInt](256741038,623958417,467905213,714532089,938071625)
+Result should be: 2063136757 2744467344
+This particular task was a little bit tricky, because HR platform gives a Scala template with signature of function:
+  def minMaxSum(arr: Array[Int]): Unit
+and input parsing in main method got the next state:
+    **DEFAULT**
+    def main(args: Array[String]) {
+        val stdin = scala.io.StdIn
+
+        val arr = stdin.readLine.split(" ").map(_.trim.toInt)
+        miniMaxSum(arr)
+    }
+    ***********
+Which is not adopted for the proper test cases/input values. So I need first to correct this in such way:
+    **CORRECT**
+        def main(args: Array[String]) {
+        val stdin = scala.io.StdIn
+
+        val arr: Array[BigInt] = stdin.readLine.split(" ").map(v => BigInt(v.trim.toInt))
+        miniMaxSum(arr)
+    }
+    *******************************
+ */
+  def miniMaxSum(arr: Array[BigInt]): Unit = {
+    /*
+    Shorthand solution that works in case of input array is a set of integer values
+    println(s"${arr.filter(e => e != arr.max).sum} ${arr.filter(e => e != arr.min).sum}")
+     */
+    @tailrec
+    def findMin(counter: Int = 0, res: BigInt): BigInt = {
+      if (counter == arr.length) res
+      else {
+        val currentResult: BigInt = arr.zipWithIndex.filter(i => i._2 != counter).map(t => t._1).sum
+        val nextRes: BigInt = if (currentResult < res) currentResult else res
+        findMin(counter + 1, nextRes)
+      }
+    }
+    @tailrec
+    def findMax(counter: Int = 0, res: BigInt = 0): BigInt = {
+      if (counter == arr.length) res
+      else {
+        val currentResult: BigInt = arr.zipWithIndex.filter(i => i._2 != counter).map(t => t._1).sum
+        val nextRes: BigInt = if (currentResult > res) currentResult else res
+        findMax(counter + 1, nextRes)
+      }
+    }
+
+    val min: BigInt = findMin(res = arr.sum)
+    val max: BigInt = findMax()
+
+    println(s"$min $max")
   }
 }
