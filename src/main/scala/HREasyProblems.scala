@@ -44,4 +44,39 @@ object HREasyProblems extends App {
 
     compute(iter1 = i1, iter2 = i2)
   }
+
+  /*
+  Given an array of integers, calculate the fractions of its elements that are positive, negative, and are zeros. Print the decimal value of each fraction on a new line.
+   */
+  def countPercents(arr: Array[Int]): Unit = {
+    var res = (0.0, 0.0, 0.0)
+    arr.foreach {
+      case a: Int if a > 0 => res = (res._1 + 1, res._2, res._3)
+      case a: Int if a < 0 => res = (res._1, res._2 + 1, res._3)
+      case a: Int if a == 0 => res = (res._1, res._2, res._3 + 1)
+    }
+    val length = arr.length.toDouble
+
+    println(res._1 / length)
+    println(res._2 / length)
+    println(res._3 / length)
+  }
+
+  /*
+  Consider a staircase of size n = 4:
+     #
+    ##
+   ###
+  ####
+  Observe that its base and height are both equal to n, and the image is drawn using # symbols and spaces. The last line is not preceded by any spaces.
+  Write a program that prints a staircase of size n.
+  */
+
+  def staircase(n: Int): Unit = {
+    (1 to n).foreach(z => {
+      (1 to n - z).foreach(_ => print(" "))
+      (1 to z).foreach(_ => print("#"))
+      println("")
+    })
+  }
 }
