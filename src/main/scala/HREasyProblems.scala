@@ -3,7 +3,7 @@ import scala.annotation.tailrec
 /**
   * Created by xsobrietyx on 27-April-2019 time 15:44
   */
-object HREasyProblems extends App {
+object HREasyProblems {
   /*
   Alice and Bob each created one problem for HackerRank. A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories: problem clarity, originality, and difficulty.
   We define the rating for Alice's challenge to be the triplet a = (a[0],a[1],a[2]) , and the rating for Bob's challenge to be the triplet b = (b[0],b[1],b[2]).
@@ -174,7 +174,7 @@ object HREasyProblems extends App {
   A negative value of d means the fruit fell d units to the tree's left, and a positive value of d means it falls d units to the tree's right.
   Given the value of d for m apples and n oranges, determine how many apples and oranges will fall on Sam's house (i.e., in the inclusive range [s, t])?
  */
-  def countApplesAndOranges(s: Int, t: Int, a: Int, b: Int, apples: Array[Int], oranges: Array[Int]) {
+  def countApplesAndOranges(s: Int, t: Int, a: Int, b: Int, apples: Array[Int], oranges: Array[Int]): Unit = {
     val result: List[Int] = List(apples.map(ap => ap + a).count(apos => apos >= s && apos <= t),
       oranges.map(o => o + b).count(op => op <= t && op >= s))
     result.foreach(println)
