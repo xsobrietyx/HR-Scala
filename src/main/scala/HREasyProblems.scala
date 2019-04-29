@@ -84,36 +84,36 @@ object HREasyProblems extends App {
   }
 
   /*
-Given five positive integers, find the minimum and maximum values that can be calculated by summing exactly four of the five integers.
-Then print the respective minimum and maximum values as a single line of two space-separated long integers.
-In example below output should be: 16 23
-1 8 3 5 = 17
-1 8 3 7 = 19
-1 8 5 7 = 21
-1 3 5 7 = 16
-8 3 5 7 = 23
-For input Array[BigInt](256741038,623958417,467905213,714532089,938071625)
-Result should be: 2063136757 2744467344
-This particular task was a little bit tricky, because HR platform gives a Scala template with signature of function:
-  def minMaxSum(arr: Array[Int]): Unit
-and input parsing in main method got the next state:
-    **DEFAULT**
-    def main(args: Array[String]) {
-        val stdin = scala.io.StdIn
+  Given five positive integers, find the minimum and maximum values that can be calculated by summing exactly four of the five integers.
+  Then print the respective minimum and maximum values as a single line of two space-separated long integers.
+  In example below output should be: 16 23
+  1 8 3 5 = 17
+  1 8 3 7 = 19
+  1 8 5 7 = 21
+  1 3 5 7 = 16
+  8 3 5 7 = 23
+  For input Array[BigInt](256741038,623958417,467905213,714532089,938071625)
+  Result should be: 2063136757 2744467344
+  This particular task was a little bit tricky, because HR platform gives a Scala template with signature of function:
+    def minMaxSum(arr: Array[Int]): Unit
+  and input parsing in main method got the next state:
+      **DEFAULT**
+      def main(args: Array[String]) {
+          val stdin = scala.io.StdIn
 
-        val arr = stdin.readLine.split(" ").map(_.trim.toInt)
-        miniMaxSum(arr)
-    }
-    ***********
-Which is not adopted for the proper test cases/input values. So I need first to correct this in such way:
-    **CORRECT**
-        def main(args: Array[String]) {
-        val stdin = scala.io.StdIn
+          val arr = stdin.readLine.split(" ").map(_.trim.toInt)
+          miniMaxSum(arr)
+      }
+      ***********
+  Which is not adopted for the proper test cases/input values. So I need first to correct this in such way:
+      **CORRECT**
+          def main(args: Array[String]) {
+          val stdin = scala.io.StdIn
 
-        val arr: Array[BigInt] = stdin.readLine.split(" ").map(v => BigInt(v.trim.toInt))
-        miniMaxSum(arr)
-    }
-    *******************************
+          val arr: Array[BigInt] = stdin.readLine.split(" ").map(v => BigInt(v.trim.toInt))
+          miniMaxSum(arr)
+      }
+      *******************************
  */
   def miniMaxSum(arr: Array[BigInt]): Unit = {
     /*
