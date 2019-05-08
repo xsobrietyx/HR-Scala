@@ -104,7 +104,7 @@ object HREasyProblems {
           val arr = stdin.readLine.split(" ").map(_.trim.toInt)
           miniMaxSum(arr)
       }
-      ***********
+      *******************************
   Which is not adopted for the proper test cases/input values. So I need first to correct this in such way:
       **CORRECT**
           def main(args: Array[String]) {
